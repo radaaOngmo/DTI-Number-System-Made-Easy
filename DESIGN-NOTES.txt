@@ -1,0 +1,5 @@
+DESIGN DIRECTION
+- Follow the supplied six-page collage: compact navy header, lavender active tab, handwritten-style heading, cream cards, Bhutan/Himalayan landscape and ornamental flourishes.
+- This version uses a custom local SVG illustration inspired by Bhutanese dzong architecture and prayer flags.
+- Keep all image paths relative so the project works on GitHub Pages and inside Google Sites embeds.
+- Before formal submission, verify that the portrait files are the correct real team photos and replace any illustrative SVG portrait if needed.

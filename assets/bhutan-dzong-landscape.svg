@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+<defs>
+ <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#142a56"/><stop offset=".55" stop-color="#344b86"/><stop offset="1" stop-color="#8068c9"/></linearGradient>
+ <linearGradient id="snow" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff9ee"/><stop offset="1" stop-color="#e8d8f7"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f6d58a"/><stop offset="1" stop-color="#b97a36"/></linearGradient>
+ <filter id="soft"><feGaussianBlur stdDeviation="15"/></filter>
+</defs>
+<rect width="1600" height="900" fill="url(#sky)"/>
+<circle cx="1260" cy="170" r="95" fill="#ffe8b8" opacity=".7" filter="url(#soft)"/>
+<circle cx="1260" cy="170" r="46" fill="#fff0c9" opacity=".55"/>
+<g fill="#fff4e4" opacity=".7">
+ <path d="M0 490L210 235 335 385 530 160 760 455 925 250 1125 470 1330 215 1600 465V900H0Z"/>
+</g>
+<g fill="#b4b9e8" opacity=".78">
+ <path d="M0 545L220 355 370 505 565 305 755 535 930 340 1110 540 1320 315 1600 530V900H0Z"/>
+</g>
+<g fill="url(#snow)">
+ <path d="M0 610L190 425 280 510 525 250 690 500 830 385 1020 570 1260 330 1450 515 1600 420V900H0Z"/>
+ <path d="M190 425l-48 48 55-17 32 27-39-58zM525 250l-72 87 76-34 41 32-45-85zM1260 330l-64 77 69-31 35 35-40-81z"/>
+</g>
+<path d="M0 625Q230 555 410 645T780 635T1180 615T1600 630V900H0Z" fill="#526d73"/>
+<path d="M0 690Q250 615 470 700T920 675T1300 690T1600 660V900H0Z" fill="#315c58"/>
+<g opacity=".7" fill="#193f43">
+ <path d="M0 760l65-95 48 70 60-92 55 108 62-80 57 88 55-75 60 77v139H0z"/>
+ <path d="M1050 760l55-95 42 64 53-80 56 98 45-72 62 91 54-76 73 89v121h-440z"/>
+</g>
+<!-- Dzong / Bhutanese fortress monastery -->
+<g transform="translate(800 410)">
+ <ellipse cx="0" cy="300" rx="340" ry="36" fill="#182f43" opacity=".35"/>
+ <path d="M-310 285L-275 75H275L310 285Z" fill="#f2e3c7" stroke="#cba96b" stroke-width="8"/>
+ <path d="M-290 75L-245 38H245L290 75Z" fill="#a74432"/>
+ <path d="M-270 38L-235 7H235L270 38Z" fill="#f0c56d"/>
+ <path d="M-250 7L-215 -20H215L250 7Z" fill="#a74432"/>
+ <path d="M-215 -20L-175 -42H175L215 -20Z" fill="#f6d98b"/>
+ <rect x="-42" y="145" width="84" height="140" fill="#8f392d"/>
+ <path d="M-54 145L0 103 54 145Z" fill="#d6a449"/>
+ <g fill="#293b5d" stroke="#b77e38" stroke-width="5">
+  <rect x="-230" y="105" width="42" height="72"/><rect x="-150" y="105" width="42" height="72"/>
+  <rect x="108" y="105" width="42" height="72"/><rect x="188" y="105" width="42" height="72"/>
+  <rect x="-230" y="205" width="42" height="42"/><rect x="-150" y="205" width="42" height="42"/>
+  <rect x="108" y="205" width="42" height="42"/><rect x="188" y="205" width="42" height="42"/>
+ </g>
+ <g fill="#e5bc6c"><rect x="-245" y="80" width="490" height="12"/><rect x="-265" y="185" width="530" height="11"/><rect x="-285" y="270" width="570" height="12"/></g>
+ <g fill="#a74432"><path d="M-185 -42L-160 -75H160L185 -42Z"/><path d="M-160 -75L-125 -98H125L160 -75Z"/></g>
+ <g fill="#f1d58c"><rect x="-190" y="-47" width="380" height="8"/><rect x="-150" y="-80" width="300" height="7"/></g>
+ <path d="M0 -99V-132" stroke="#f7d785" stroke-width="7"/><path d="M-20 -130H20L0 -150Z" fill="#f7d785"/>
+</g>
+<!-- Prayer flags -->
+<g transform="translate(75 85)" stroke="#fff4e8" stroke-width="2" opacity=".92">
+ <path d="M0 0L470 65" fill="none" stroke-width="4"/>
+ <path d="M25 4l36 5-4 38-36-5z" fill="#cf4e52"/><path d="M90 13l36 5-4 38-36-5z" fill="#e8c65d"/>
+ <path d="M155 22l36 5-4 38-36-5z" fill="#5a9bb8"/><path d="M220 31l36 5-4 38-36-5z" fill="#f0e7d5"/>
+ <path d="M285 40l36 5-4 38-36-5z" fill="#58a17a"/><path d="M350 49l36 5-4 38-36-5z" fill="#d45a54"/>
+ <path d="M415 58l36 5-4 38-36-5z" fill="#e8c65d"/>
+</g>
+<!-- small blossoms -->
+<g fill="#f6a6c7" opacity=".95">
+ <circle cx="100" cy="790" r="8"/><circle cx="119" cy="779" r="7"/><circle cx="127" cy="798" r="8"/>
+ <circle cx="1440" cy="795" r="8"/><circle cx="1460" cy="780" r="7"/><circle cx="1470" cy="801" r="8"/>
+</g>
+</svg>
