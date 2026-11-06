@@ -1,4 +1,4 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#182f61"><title>Number Quest | Number System Made Easy</title><link rel="stylesheet" href="style.css"><script src="script.js" defer></script>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#182f61"><title>Number Quest | Number System Made Easy</title><link rel="stylesheet" href="style.css"><script src="script.js"></script>
 <style>
 .page-wrap{max-width:1120px;margin:0 auto;padding:38px 22px 70px}.panel{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px;margin:16px 0;box-shadow:var(--shadow)}
 .grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.muted{color:var(--muted)}.pill{display:inline-block;border-radius:20px;padding:5px 11px;background:#eee8ff;color:#5941b4;font-size:12px;font-weight:800}.progress{height:10px;border-radius:10px;background:#e9e5ef;overflow:hidden}.progress span{display:block;height:100%;background:linear-gradient(90deg,#7454ef,#1a9aa3);width:0}.action-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.field{padding:11px 13px;border:1px solid #d8d2e5;border-radius:10px;min-width:180px;max-width:100%}button,.btn{cursor:pointer}.question{padding:14px;border:1px solid var(--line);border-radius:12px;margin:12px 0}.question label{display:block;margin:7px 0}.notice{background:#fff2d7;border-left:4px solid var(--gold);padding:13px 16px;border-radius:9px}.dark-mode{--cream:#151a2b;--paper:#20283d;--ink:#f2f2fa;--muted:#b8bfd3;--line:#38425d;--shadow:0 12px 32px #0003}.dark-mode .section-heading h2,.dark-mode h1,.dark-mode h2,.dark-mode h3{color:#f3efff}.tool-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.site-footer{text-align:center;padding:24px;color:var(--muted);font-size:12px}
@@ -8,18 +8,172 @@
 <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')">☰</button>
 <nav class="nav"><a href="index.html">Home</a><a href="lessons.html">Lessons</a><a href="about.html">About Us</a><a href="feedback.html">Feedback</a><a href="dashboard.html">Dashboard</a><a href="practice.html">Practice Zone</a><a href="tutor.html">Number Tutor</a><a href="game.html">Number Quest</a><a href="challenge.html">Final Challenge</a><a href="certificate.html">Certificate</a></nav></header><main class="page-wrap"><p class="eyebrow">NUMBER SYSTEM MADE EASY • GRADE 9 DTI</p>
 <h1>Number Quest</h1><p class="muted">Clear five stages of number-system challenges. Each cleared stage awards an upgraded achievement badge. The final 50-mark challenge unlocks after all ten lessons and all five game stages are complete.</p>
-<div class="panel"><div class="tool-controls"><span class="pill" id="stageLabel">Stage 1 of 5</span><span class="pill" id="badgeLabel">Badge reward: Number Explorer</span></div><div id="gameQuestion" class="question"></div><input id="gameAnswer" class="field" placeholder="Your answer"><button class="btn btn-primary" onclick="submitGame()">Submit answer</button><p id="gameFeedback" aria-live="polite"></p><button class="btn btn-secondary" id="nextStage" onclick="nextGame()" style="display:none">Continue to next stage →</button><p id="gameProgress" class="muted"></p></div>
+<section class="panel quest-guide" aria-labelledby="quest-guide-title">
+<h2 id="quest-guide-title">How Number Quest works</h2>
+<p>Number Quest is a five-stage practice game. Each stage has three short questions based on the lessons. Answer all three correctly (3/3) to clear the stage and earn its badge.</p>
+<div class="quest-steps">
+ <article><span>01</span><strong>Answer</strong><small>Read each number-system question and enter your answer.</small></article>
+ <article><span>02</span><strong>Clear the stage</strong><small>You need 3 correct answers out of 3. If you miss one, retry the stage.</small></article>
+ <article><span>03</span><strong>Earn a badge</strong><small>Each cleared stage awards a new badge and unlocks the next stage.</small></article>
+ <article><span>04</span><strong>Unlock the final challenge</strong><small>Clear all five stages and complete all ten lessons to unlock the 50-mark challenge.</small></article>
+</div>
+<p class="quest-tip"><strong>Tip:</strong> You can use the lesson notes, PowerPoint slides, Practice Zone and Number System Tutor to revise before retrying.</p>
+</section>
+<div class="panel"><div class="quest-progress-row"><div class="tool-controls"><span class="pill" id="stageLabel">Stage 1 of 5</span><span class="pill" id="badgeLabel">Badge reward: Number Explorer</span></div><span class="muted" id="stagesCleared">0 of 5 stages cleared</span></div><div class="quest-stage-track" id="questStageTrack" aria-label="Stage progress"></div><div id="gameQuestion" class="question quest-question-card" aria-live="polite"><div class="quest-question-number">QUESTION 1 OF 3</div><p class="quest-question-text">Convert 101₂ to decimal.</p></div><input id="gameAnswer" class="field" placeholder="Your answer" autocomplete="off" aria-label="Your answer"><button class="btn btn-primary" id="gameSubmit" type="button">Submit answer</button><p id="gameFeedback" aria-live="polite"></p><button class="btn btn-secondary" id="nextStage" type="button" hidden>Continue to next stage →</button><p id="gameProgress" class="muted"></p></div>
 <div class="notice">Game progress and badges are saved in this browser. You can retry a stage until you clear it.</div>
 <script>
-const stages=[
-[{q:'Convert 101₂ to decimal.',a:'5'},{q:'What is the base of octal?',a:'8'},{q:'How many bits are in an octal group?',a:'3'}],
-[{q:'Convert 110 010₂ to octal.',a:'62'},{q:'What is the base of hexadecimal?',a:'16'},{q:'What is 1111₂ in hexadecimal?',a:'f'}],
-[{q:'Convert 13₁₀ to binary.',a:'1101'},{q:'What is the decimal value of A₁₆?',a:'10'},{q:'Convert 12₈ to decimal.',a:'10'}],
-[{q:'Convert 31₁₀ to hexadecimal.',a:'1f'},{q:'Convert 25₁₀ to octal.',a:'31'},{q:'What is the decimal value of F₁₆?',a:'15'}],
-[{q:'Convert 157₈ to decimal.',a:'111'},{q:'Convert 2F₁₆ to decimal.',a:'47'},{q:'Convert 17₈ to hexadecimal.',a:'f'}]
-];let stage=1,idx=0,score=0,cleared=false;let p=NSME.get();stage=Math.min(5,p.gameLevel+1);if(p.gameLevel===5)stage=5;
-function renderGame(){document.getElementById('stageLabel').textContent='Stage '+stage+' of 5';document.getElementById('badgeLabel').textContent='Badge reward: '+['Number Explorer','Binary Builder','Conversion Champion','Base Master','Number Quest Hero'][stage-1];document.getElementById('gameQuestion').textContent='Question '+(idx+1)+': '+stages[stage-1][idx].q;document.getElementById('gameProgress').textContent='Correct answers this stage: '+score+'/3';document.getElementById('gameAnswer').value='';}
-function submitGame(){if(cleared)return;let v=document.getElementById('gameAnswer').value.trim().toLowerCase().replace(/[₀-₉]/g,'');if(!v){document.getElementById('gameFeedback').textContent='Enter an answer first.';return;}if(v===stages[stage-1][idx].a){score++;document.getElementById('gameFeedback').textContent='Correct!';}else document.getElementById('gameFeedback').textContent='Not quite. Review the lesson resources and try this stage again.';idx++;if(idx===3){if(score===3){NSME.awardGame(stage);cleared=true;document.getElementById('gameFeedback').textContent='Stage cleared! You earned the '+['Number Explorer','Binary Builder','Conversion Champion','Base Master','Number Quest Hero'][stage-1]+' badge.';document.getElementById('nextStage').style.display='inline-flex';}else{document.getElementById('gameFeedback').textContent='You scored '+score+'/3. You need 3/3 to clear this stage. Restarting the stage.';document.getElementById('nextStage').textContent='Retry this stage';document.getElementById('nextStage').style.display='inline-flex';}}else renderGame();document.getElementById('gameProgress').textContent='Correct answers this stage: '+score+'/3';}
-function nextGame(){if(cleared){if(stage<5){stage++;}else{document.getElementById('gameFeedback').textContent='Congratulations! You cleared Number Quest. The final challenge is now available if all ten lessons are complete.';document.getElementById('nextStage').style.display='none';return;}}idx=0;score=0;cleared=false;document.getElementById('nextStage').style.display='none';document.getElementById('nextStage').textContent='Continue to next stage →';renderGame();}
-renderGame();
+(function () {
+  'use strict';
+  const stages = [
+    [{q:'Convert 101₂ to decimal.',a:'5'},{q:'What is the base of octal?',a:'8'},{q:'How many bits are in an octal group?',a:'3'}],
+    [{q:'Convert 110 010₂ to octal.',a:'62'},{q:'What is the base of hexadecimal?',a:'16'},{q:'What is 1111₂ in hexadecimal?',a:'f'}],
+    [{q:'Convert 13₁₀ to binary.',a:'1101'},{q:'What is the decimal value of A₁₆?',a:'10'},{q:'Convert 12₈ to decimal.',a:'10'}],
+    [{q:'Convert 31₁₀ to hexadecimal.',a:'1f'},{q:'Convert 25₁₀ to octal.',a:'31'},{q:'What is the decimal value of F₁₆?',a:'15'}],
+    [{q:'Convert 157₈ to decimal.',a:'111'},{q:'Convert 2F₁₆ to decimal.',a:'47'},{q:'Convert 17₈ to hexadecimal.',a:'f'}]
+  ];
+  const badgeNames = ['Number Explorer','Binary Builder','Conversion Champion','Base Master','Number Quest Hero'];
+
+  function initNumberQuest() {
+    const api = window.NSME;
+    const questionBox = document.getElementById('gameQuestion');
+    const answerField = document.getElementById('gameAnswer');
+    const submitButton = document.getElementById('gameSubmit');
+    const nextButton = document.getElementById('nextStage');
+    const feedback = document.getElementById('gameFeedback');
+    const progressText = document.getElementById('gameProgress');
+    const stageLabel = document.getElementById('stageLabel');
+    const badgeLabel = document.getElementById('badgeLabel');
+    const stagesCleared = document.getElementById('stagesCleared');
+    const track = document.getElementById('questStageTrack');
+
+    if (!api || !questionBox || !answerField || !submitButton) {
+      if (questionBox) questionBox.textContent = 'The game could not start. Please refresh this page.';
+      return;
+    }
+
+    let progress = api.get();
+    let stage = Math.min(5, Math.max(1, (Number(progress.gameLevel) || 0) + 1));
+    let questionIndex = 0;
+    let score = 0;
+    let stageCleared = false;
+
+    function updateTrack() {
+      const done = Number(api.get().gameLevel) || 0;
+      stagesCleared.textContent = done + ' of 5 stages cleared';
+      track.innerHTML = badgeNames.map((name, i) =>
+        '<span class="quest-stage ' + (i < done ? 'done' : (i + 1 === stage ? 'current' : '')) +
+        '" title="' + name + '">' + (i < done ? '✓' : 'Stage ' + (i + 1)) + '</span>'
+      ).join('');
+    }
+
+    function renderQuestion() {
+      const current = stages[stage - 1][questionIndex];
+      stageLabel.textContent = 'Stage ' + stage + ' of 5';
+      badgeLabel.textContent = 'Badge reward: ' + badgeNames[stage - 1];
+      questionBox.innerHTML = '<div class="quest-question-number">QUESTION ' + (questionIndex + 1) +
+        ' OF 3</div><p class="quest-question-text">' + current.q + '</p>';
+      progressText.textContent = 'Correct answers this stage: ' + score + '/3';
+      answerField.value = '';
+      answerField.disabled = false;
+      answerField.hidden = false;
+      submitButton.hidden = false;
+      nextButton.hidden = true;
+      feedback.textContent = '';
+      updateTrack();
+    }
+
+    function finishStage() {
+      if (score === 3) {
+        api.awardGame(stage);
+        stageCleared = true;
+        feedback.textContent = 'Excellent! You cleared Stage ' + stage + ' and earned the ' + badgeNames[stage - 1] + ' badge.';
+        nextButton.textContent = stage === 5 ? 'Finish Number Quest' : 'Continue to next stage →';
+      } else {
+        stageCleared = false;
+        feedback.textContent = 'You scored ' + score + '/3. You need 3/3 to clear this stage. Retry and try again!';
+        nextButton.textContent = 'Retry this stage';
+      }
+      answerField.disabled = true;
+      submitButton.hidden = true;
+      nextButton.hidden = false;
+      updateTrack();
+    }
+
+    function submitAnswer() {
+      if (stageCleared || questionIndex >= 3) return;
+      const value = answerField.value.trim().toLowerCase()
+        .replace(/[₀₁₂₃₄₅₆₇₈₉]/g, '')
+        .replace(/\s+/g, '');
+      if (!value) {
+        feedback.textContent = 'Please enter your answer before submitting.';
+        answerField.focus();
+        return;
+      }
+      const correct = value === stages[stage - 1][questionIndex].a;
+      if (correct) {
+        score++;
+        feedback.textContent = 'Correct! Well done.';
+      } else {
+        feedback.textContent = 'Not quite. The next question is ready. Review your lessons if you need help.';
+      }
+      questionIndex++;
+      if (questionIndex >= 3) {
+        progressText.textContent = 'Correct answers this stage: ' + score + '/3';
+        finishStage();
+      } else {
+        const oldFeedback = feedback.textContent;
+        renderQuestion();
+        feedback.textContent = oldFeedback;
+      }
+    }
+
+    function continueGame() {
+      if (stageCleared) {
+        if (stage >= 5) {
+          stageLabel.textContent = 'Quest completed';
+          badgeLabel.textContent = 'All five badges earned';
+          questionBox.innerHTML = '<div class="quest-complete"><span aria-hidden="true">🏆</span><h2>Number Quest completed!</h2><p>You have cleared all five stages and earned all five achievement badges.</p><p>Complete all ten lessons as well to unlock the Final 50-Mark Challenge.</p><a class="btn btn-primary" href="lessons.html">Review your lessons</a> <a class="btn btn-secondary" href="challenge.html">Go to Final Challenge</a></div>';
+          answerField.hidden = true;
+          submitButton.hidden = true;
+          nextButton.hidden = true;
+          progressText.textContent = '5 of 5 stages cleared';
+          updateTrack();
+          return;
+        }
+        stage++;
+      }
+      questionIndex = 0;
+      score = 0;
+      stageCleared = false;
+      renderQuestion();
+    }
+
+    submitButton.addEventListener('click', submitAnswer);
+    answerField.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') submitAnswer();
+    });
+    nextButton.addEventListener('click', continueGame);
+
+    if ((Number(progress.gameLevel) || 0) >= 5) {
+      stage = 5;
+      stageCleared = true;
+      questionBox.innerHTML = '<div class="quest-complete"><span aria-hidden="true">🏆</span><h2>Number Quest completed!</h2><p>You have earned all five achievement badges.</p><p>Complete all ten lessons as well to unlock the Final 50-Mark Challenge.</p><a class="btn btn-primary" href="lessons.html">Review your lessons</a> <a class="btn btn-secondary" href="challenge.html">Go to Final Challenge</a></div>';
+      stageLabel.textContent = 'Quest completed';
+      badgeLabel.textContent = 'All five badges earned';
+      answerField.hidden = true;
+      submitButton.hidden = true;
+      nextButton.hidden = true;
+      progressText.textContent = '5 of 5 stages cleared';
+      updateTrack();
+    } else {
+      renderQuestion();
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNumberQuest);
+  } else {
+    initNumberQuest();
+  }
+})();
 </script></main><footer class="site-footer">Number System Made Easy • Learn at your own pace • Bhutan</footer></body></html>

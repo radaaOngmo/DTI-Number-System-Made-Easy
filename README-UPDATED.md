@@ -61,3 +61,19 @@ Opening the HTML file directly with `file://` may restrict some browser features
 - `style.css`, `script.js`, `videos-config.js` — shared styles and logic
 - `assets/` — original Bhutanese design assets and team images
 - `resources/` — original PowerPoints and PDF slide previews
+
+## Certificate download
+After the certificate is unlocked, enter the learner's name and select Generate Certificate. The name appears on the certificate and is remembered in that browser. Select Download / Save Certificate as PDF, then choose Save as PDF in the browser print destination. Eligibility remains browser-local and is not a teacher-verified record.
+
+
+## Accessibility font controls and background music update
+- A−, A, and A+ now visibly scale the page content and save the selected size in this browser.
+- A gentle original ambient instrumental loop is included at `assets/soothing-ambient.ogg`.
+- The floating toolbar includes a Music On/Off control. Playback starts only after the learner clicks it because modern browsers block unsolicited audio autoplay. The volume is intentionally low and the track loops softly.
+- Music preference is saved in the browser; after a new browser session, the learner may need to click the control again to resume playback.
+
+
+## Number Quest question-display fix
+- The first question is included as visible fallback content, and the game initializes after the page DOM is ready.
+- The question card has explicit high-contrast light/dark theme styling and visible question numbering.
+- Game stages remain playable from Stage 1 without completing lessons; lesson completion remains a separate prerequisite for the Final 50-Mark Challenge.

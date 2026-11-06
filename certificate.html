@@ -1,49 +1,56 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#182f61"><meta name="description" content="Number System Made Easy — an interactive Grade 9 DTI learning portal."><title>Certificate | Number System Made Easy</title><link rel="stylesheet" href="style.css"><script src="script.js" defer></script><script>
 document.addEventListener('DOMContentLoaded',function(){
-  const threshold=40;
-  const score=Number(localStorage.getItem('nsmeFinalScore'));
-  const hasScore=localStorage.getItem('nsmeFinalScore')!==null && Number.isFinite(score);
-  const prerequisites=!!(window.NSME && NSME.eligible());
-  const status=document.getElementById('certificate-status');
-  const btn=document.getElementById('generate-certificate');
-  const printBtn=document.getElementById('print-certificate');
-  const paper=document.getElementById('certificate-paper');
-  const nameField=document.getElementById('student-name');
-
-  if(!prerequisites){
-    status.innerHTML='<strong>Certificate locked.</strong><br>Complete all 10 lessons and clear all five Number Quest stages before attempting the final challenge.';
-    btn.disabled=true;
-    btn.textContent='Complete the learning journey first';
-    paper.hidden=true;
-  }else if(!hasScore){
-    status.innerHTML='<strong>Certificate locked.</strong><br>Complete the 50-mark Final Challenge. You need at least 40/50 (80%).';
-    btn.disabled=true;
-    btn.textContent='Complete the Final Challenge first';
-    paper.hidden=true;
-  }else if(score<threshold){
-    status.innerHTML='<strong>Certificate locked.</strong><br>Your latest score is '+score+'/50. You need 40/50 (80%). <a href="challenge.html">Try the Final Challenge again →</a>';
-    btn.disabled=true;
-    btn.textContent='Score 40/50 to unlock';
-    paper.hidden=true;
-  }else{
-    status.innerHTML='<strong>Congratulations!</strong><br>Your latest score is '+score+'/50. You have unlocked your certificate.';
-    btn.disabled=false;
-    paper.hidden=false;
+ const threshold=40, status=document.getElementById('certificate-status');
+ const btn=document.getElementById('generate-certificate'), printBtn=document.getElementById('print-certificate');
+ const paper=document.getElementById('certificate-paper'), nameField=document.getElementById('student-name');
+ const namePreview=document.getElementById('cert-name');
+ const progress=window.NSME?NSME.get():{};
+ const completed=Array.isArray(progress.completedLessons)?progress.completedLessons.length:0;
+ const gameDone=Number(progress.gameLevel)>=5;
+ const score=Number(localStorage.getItem('nsmeFinalScore'));
+ const hasScore=localStorage.getItem('nsmeFinalScore')!==null && Number.isFinite(score);
+ const eligible=!!(window.NSME && NSME.eligible());
+ let unlocked=eligible && hasScore && score>=threshold;
+ const savedName=localStorage.getItem('nsmeCertificateName')||'';
+ nameField.value=savedName;
+ namePreview.textContent=savedName||'Your Name';
+ function updateName(){const name=nameField.value.trim();namePreview.textContent=name||'Your Name';try{localStorage.setItem('nsmeCertificateName',name);}catch(e){}}
+ nameField.addEventListener('input',updateName);
+ if(!eligible){
+  status.innerHTML='<strong>Certificate locked.</strong><br>Complete all 10 lessons ('+completed+'/10) and clear all five Number Quest stages ('+(gameDone?'5':'less than 5')+'/5) first. Then attempt the Final Challenge.';
+  btn.disabled=true;btn.textContent='Complete the learning journey first';paper.hidden=true;
+ }else if(!hasScore){
+  status.innerHTML='<strong>Learning journey complete!</strong><br>You have unlocked the Final Challenge. Complete it and score at least 40/50 (80%) to receive your certificate.';
+  btn.disabled=true;btn.textContent='Complete the Final Challenge first';paper.hidden=true;
+ }else if(score<threshold){
+  status.innerHTML='<strong>Not quite yet.</strong><br>Your latest score is '+score+'/50. You need at least 40/50 (80%). <a href="challenge.html">Try the Final Challenge again →</a>';
+  btn.disabled=true;btn.textContent='Score 40/50 to unlock';paper.hidden=true;
+ }else{
+  status.innerHTML='<strong>Congratulations! Your certificate is unlocked.</strong><br>You completed all ten lessons, cleared Number Quest and scored '+score+'/50 in the Final Challenge. Enter your name below; it will appear on the certificate.';
+  btn.disabled=false;paper.hidden=false;
+ }
+ btn.addEventListener('click',function(){
+  const n=nameField.value.trim();
+  const latest=Number(localStorage.getItem('nsmeFinalScore'));
+  const current=window.NSME?NSME.get():{};
+  if(!window.NSME || !NSME.eligible() || !Number.isFinite(latest) || latest<threshold){
+   alert('Complete all 10 lessons, clear all five Number Quest stages, and score at least 40/50 in the Final Challenge.');return;
   }
-
-  btn.addEventListener('click',function(){
-    const n=nameField.value.trim();
-    const latest=Number(localStorage.getItem('nsmeFinalScore'));
-    if(!prerequisites || !Number.isFinite(latest) || latest<threshold){
-      alert('Complete all lessons, clear Number Quest, and score at least 40/50 in the Final Challenge.');
-      return;
-    }
-    if(!n){alert('Please enter your name first.');return;}
-    document.getElementById('cert-name').textContent=n;
-    document.getElementById('cert-date').textContent=new Date().toLocaleDateString();
-    document.getElementById('cert-score').textContent=latest+' / 50';
-    printBtn.hidden=false;
-  });
-  printBtn.addEventListener('click',()=>window.print());
+  if(!n){alert('Please enter your full name first.');nameField.focus();return;}
+  namePreview.textContent=n;
+  document.getElementById('cert-date').textContent=new Date().toLocaleDateString();
+  document.getElementById('cert-score').textContent=latest+' / 50';
+  localStorage.setItem('nsmeCertificateName',n);
+  paper.hidden=false;printBtn.hidden=false;
+  status.textContent='Your certificate is ready. Choose Download / Save as PDF to save a copy.';
+ });
+ printBtn.addEventListener('click',function(){
+  const n=nameField.value.trim();
+  if(!n){alert('Enter your name first.');nameField.focus();return;}
+  namePreview.textContent=n;
+  document.getElementById('cert-date').textContent=new Date().toLocaleDateString();
+  document.getElementById('cert-score').textContent=Number(localStorage.getItem('nsmeFinalScore'))+' / 50';
+  window.print();
+ });
 });
-</script></head><body><header class="topbar"><a class="brand" href="index.html"><span class="brand-emblem">༄</span><span><strong>Number System</strong><small>Made Easy</small></span></a><button class="nav-toggle" aria-label="Open menu">☰</button><nav class="nav"><a href="index.html">Home</a><a href="lessons.html">Learn</a><a href="challenge.html">Final Challenge</a><a href="certificate.html">Certificate</a><a href="about.html">About Us</a><a href="feedback.html">Feedback</a><a href="dashboard.html">Dashboard</a><a href="practice.html">Practice Zone</a><a href="tutor.html">Tutor</a><a href="game.html">Number Quest</a></nav></header><main><section class="page-hero hero-certificate"><div class="eyebrow">CELEBRATE YOUR PROGRESS</div><h1>Get Your <em>Certificate</em></h1><h2>Celebrate Your Achievement!</h2><p>Complete the final challenge and score well to get your certificate of completion.</p></section><section class="certificate-area"><div class="certificate-side-note"><span class="trophy">🏆</span><h3>Well Done!</h3><p>Keep Learning<br>Keep Growing!</p></div><div class="certificate-controls" id="certificate-controls"><div id="certificate-status" class="notice" aria-live="polite">Checking your final challenge result…</div><label for="student-name">Enter your name</label><input id="student-name" class="field" placeholder="Your Name"><button class="btn btn-primary" id="generate-certificate">Generate Certificate →</button><p class="small-note">Eligibility requires at least 40/50 (80%) in the Final Challenge. The score is checked in this browser.</p></div><article class="certificate-paper" id="certificate-paper"><div class="cert-corner">✦</div><div class="cert-emblem">༄</div><span class="cert-kicker">CERTIFICATE</span><h2>OF COMPLETION</h2><p>This is to certify that</p><h3 id="cert-name">Your Name</h3><p>has successfully completed</p><strong>Number System Made Easy for Grade 9</strong><div class="cert-bottom"><span>Date: <b id="cert-date">____________</b></span><span>Score: <b id="cert-score">__/50</b></span></div><div class="cert-signature">Number System Made Easy · Grade 9 DTI</div><div class="cert-medal">✹</div></article><button class="btn btn-primary print-button" id="print-certificate" hidden>Print Certificate</button></section></main><footer class="footer"><a class="brand" href="index.html"><span class="brand-emblem">༄</span><span><strong>Number System</strong><small>Made Easy</small></span></a><p>Learn it. Practise it. Master it.</p><div class="footer-links"><a href="lessons.html">Lessons</a><a href="challenge.html">Final Challenge</a><a href="about.html">About Us</a><a href="feedback.html">Feedback</a></div><small>CAP401 Digital Artefact · Grade 9 DTI · Bhutan</small></footer></body></html>
+</script></head><body><header class="topbar"><a class="brand" href="index.html"><span class="brand-emblem">༄</span><span><strong>Number System</strong><small>Made Easy</small></span></a><button class="nav-toggle" aria-label="Open menu">☰</button><nav class="nav"><a href="index.html">Home</a><a href="lessons.html">Learn</a><a href="challenge.html">Final Challenge</a><a href="certificate.html">Certificate</a><a href="about.html">About Us</a><a href="feedback.html">Feedback</a><a href="dashboard.html">Dashboard</a><a href="practice.html">Practice Zone</a><a href="tutor.html">Tutor</a><a href="game.html">Number Quest</a></nav></header><main><section class="page-hero hero-certificate"><div class="eyebrow">CELEBRATE YOUR PROGRESS</div><h1>Get Your <em>Certificate</em></h1><h2>Celebrate Your Achievement!</h2><p>Complete the final challenge and score well to get your certificate of completion.</p></section><section class="certificate-area"><div class="certificate-side-note"><span class="trophy">🏆</span><h3>Well Done!</h3><p>Keep Learning<br>Keep Growing!</p></div><div class="certificate-controls" id="certificate-controls"><div id="certificate-status" class="notice" aria-live="polite">Checking your final challenge result…</div><label for="student-name">Enter your full name</label><input id="student-name" class="field" placeholder="Type your name as it should appear"><button class="btn btn-primary" id="generate-certificate">Generate Certificate →</button><p class="small-note">Eligibility requires at least 40/50 (80%) in the Final Challenge. Your certificate unlocks after all 10 lessons, all 5 Number Quest stages, and a score of at least 40/50. Your name is saved in this browser. After generating it, choose “Download / Save Certificate as PDF” and select “Save as PDF” in the print window.</p></div><article class="certificate-paper" id="certificate-paper"><div class="cert-corner">✦</div><div class="cert-emblem">༄</div><span class="cert-kicker">CERTIFICATE</span><h2>OF COMPLETION</h2><p>This is to certify that</p><h3 id="cert-name">Your Name</h3><p>has successfully completed</p><strong>Number System Made Easy for Grade 9</strong><div class="cert-bottom"><span>Date: <b id="cert-date">____________</b></span><span>Score: <b id="cert-score">__/50</b></span></div><div class="cert-signature">Number System Made Easy · Grade 9 DTI</div><div class="cert-medal">✹</div></article><button class="btn btn-primary print-button" id="print-certificate" hidden>Print Certificate</button></section></main><footer class="footer"><a class="brand" href="index.html"><span class="brand-emblem">༄</span><span><strong>Number System</strong><small>Made Easy</small></span></a><p>Learn it. Practise it. Master it.</p><div class="footer-links"><a href="lessons.html">Lessons</a><a href="challenge.html">Final Challenge</a><a href="about.html">About Us</a><a href="feedback.html">Feedback</a></div><small>CAP401 Digital Artefact · Grade 9 DTI · Bhutan</small></footer></body></html>

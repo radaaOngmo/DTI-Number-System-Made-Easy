@@ -185,6 +185,7 @@
     let fontSize = Number(localStorage.getItem('nsmeFontSize')) || 15;
     fontSize = Math.min(22, Math.max(12, fontSize));
     root.style.setProperty('--site-font-size', fontSize + 'px');
+    body.style.zoom = String(fontSize / 15);
     
 
     // Make the mobile navigation button work on every page.
@@ -211,11 +212,13 @@
         '<button type="button" id="font-smaller" aria-label="Decrease text size" title="Decrease text size">A−</button>' +
         '<button type="button" id="font-reset" aria-label="Reset text size" title="Reset text size">A</button>' +
         '<button type="button" id="font-larger" aria-label="Increase text size" title="Increase text size">A+</button>' +
-        '<button type="button" id="theme-toggle" aria-label="Toggle light and dark mode" title="Toggle light and dark mode">☾</button>';
+        '<button type="button" id="theme-toggle" aria-label="Toggle light and dark mode" title="Toggle light and dark mode">☾</button>' +
+        '<button type="button" id="music-toggle" aria-label="Turn background music on or off" title="Turn background music on or off">♫ Music: Off</button>';
       body.appendChild(toolbar);
 
       function applyFontSize() {
         root.style.setProperty('--site-font-size', fontSize + 'px');
+    body.style.zoom = String(fontSize / 15);
         
         localStorage.setItem('nsmeFontSize', String(fontSize));
       }
@@ -238,6 +241,49 @@
         this.textContent = dark ? '☀' : '☾';
       });
       document.getElementById('theme-toggle').textContent = body.classList.contains('dark-mode') ? '☀' : '☾';
+
+      // Gentle original ambient soundtrack. Browsers require a user gesture before audio playback.
+      let music = document.getElementById('nsme-background-music');
+      if (!music) {
+        music = document.createElement('audio');
+        music.id = 'nsme-background-music';
+        music.src = 'assets/soothing-ambient.ogg';
+        music.loop = true;
+        music.preload = 'none';
+        music.volume = 0.22;
+        music.setAttribute('aria-label', 'Soft ambient background music');
+        body.appendChild(music);
+      }
+      const musicButton = document.getElementById('music-toggle');
+      let musicWanted = localStorage.getItem('nsmeMusic') === 'on';
+      function updateMusicButton(state) {
+        musicButton.textContent = state ? '♫ Music: On' : '♫ Music: Off';
+        musicButton.setAttribute('aria-pressed', state ? 'true' : 'false');
+        musicButton.title = state ? 'Turn background music off' : 'Turn background music on';
+      }
+      updateMusicButton(false);
+      musicButton.addEventListener('click', function () {
+        if (musicWanted && !music.paused) {
+          music.pause();
+          musicWanted = false;
+          localStorage.setItem('nsmeMusic', 'off');
+          updateMusicButton(false);
+          return;
+        }
+        musicWanted = true;
+        music.play().then(function () {
+          localStorage.setItem('nsmeMusic', 'on');
+          updateMusicButton(true);
+        }).catch(function () {
+          musicWanted = false;
+          localStorage.setItem('nsmeMusic', 'off');
+          updateMusicButton(false);
+          musicButton.textContent = '♫ Tap to play';
+        });
+      });
+      music.addEventListener('pause', function () {
+        if (!musicWanted) updateMusicButton(false);
+      });
     }
   }
 
