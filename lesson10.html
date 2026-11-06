@@ -24,9 +24,20 @@
       <a class="btn btn-secondary" href="resources/previews/lesson10.pdf" target="_blank" rel="noopener">Open slide preview ↗</a>
     </div>
   </div>
-  <div class="slide-viewer">
-    <iframe src="resources/previews/lesson10.pdf#toolbar=1&navpanes=0&view=FitH" title="Lesson 10 PowerPoint slide preview" loading="lazy"></iframe>
+  <div class="pdfjs-viewer" data-pdf="resources/previews/lesson10.pdf" aria-label="Interactive slide preview">
+  <div class="pdfjs-toolbar">
+    <button type="button" data-pdf-prev disabled>← Previous</button>
+    <span class="pdfjs-page">Loading…</span>
+    <button type="button" data-pdf-next disabled>Next →</button>
+    <span class="pdfjs-toolbar-spacer"></span>
+    <button type="button" data-pdf-zoom-out aria-label="Zoom out">−</button>
+    <button type="button" data-pdf-zoom-in aria-label="Zoom in">+</button>
   </div>
+  <div class="pdfjs-stage">
+    <canvas aria-label="PowerPoint slide preview"></canvas>
+  </div>
+  <p class="pdfjs-status" role="status">Preparing slide preview…</p>
+</div>
   <p class="viewer-help">If the slides do not appear in the preview window, use “Open slide preview” above. The downloadable file is the original editable PowerPoint.</p>
 </section>
 <div class="panel lesson-quiz-panel" id="lesson-quiz-panel"><h2>Quick lesson check</h2><p class="muted">Answer all five questions. You need at least 4/5 to complete this lesson and unlock the next one. You can retry.</p><p class="quiz-lock-note" id="quiz-lock-note">🔒 Complete the video to unlock this five-question lesson check.</p><fieldset id="lesson-quiz-fields" disabled><div class="question"><p><b>1. How many bits represent one octal digit?</b></p><input class="field" id="q0" placeholder="Type your answer"></div><div class="question"><p><b>2. How many bits represent one hexadecimal digit?</b></p><input class="field" id="q1" placeholder="Type your answer"></div><div class="question"><p><b>3. What is 7₈ in binary?</b></p><input class="field" id="q2" placeholder="Type your answer"></div><div class="question"><p><b>4. What is F₁₆ in binary?</b></p><input class="field" id="q3" placeholder="Type your answer"></div><div class="question"><p><b>5. Convert 17₈ to hexadecimal.</b></p><input class="field" id="q4" placeholder="Type your answer"></div></fieldset><button class="btn btn-primary" id="lesson-submit" disabled onclick="checkLesson10()">Submit answers</button><p id="result" aria-live="polite"></p></div>
@@ -45,4 +56,86 @@ document.addEventListener('DOMContentLoaded',function(){
   }
 });
 </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+(function () {
+  'use strict';
+  const viewer = document.querySelector('.pdfjs-viewer');
+  if (!viewer) return;
+  const canvas = viewer.querySelector('canvas');
+  const context = canvas.getContext('2d');
+  const status = viewer.querySelector('.pdfjs-status');
+  const pageLabel = viewer.querySelector('.pdfjs-page');
+  const prev = viewer.querySelector('[data-pdf-prev]');
+  const next = viewer.querySelector('[data-pdf-next]');
+  const zoomOut = viewer.querySelector('[data-pdf-zoom-out]');
+  const zoomIn = viewer.querySelector('[data-pdf-zoom-in]');
+  const fileUrl = viewer.getAttribute('data-pdf');
+  let pdf = null, pageNumber = 1, scale = 1.15, renderTask = null;
+
+  function showError(message) {
+    status.textContent = message + ' Use “Open slide preview” or download the PowerPoint above.';
+    viewer.classList.add('pdfjs-error');
+  }
+  function renderPage() {
+    if (!pdf) return;
+    if (renderTask) { try { renderTask.cancel(); } catch (_) {} }
+    status.textContent = 'Rendering slide ' + pageNumber + '…';
+    pdf.getPage(pageNumber).then(function (page) {
+      const base = page.getViewport({ scale: 1 });
+      const availableWidth = Math.max(280, viewer.querySelector('.pdfjs-stage').clientWidth - 32);
+      const fitScale = Math.min(1.6, availableWidth / base.width);
+      const viewport = page.getViewport({ scale: fitScale * scale });
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.floor(viewport.width * dpr);
+      canvas.height = Math.floor(viewport.height * dpr);
+      canvas.style.width = Math.floor(viewport.width) + 'px';
+      canvas.style.height = Math.floor(viewport.height) + 'px';
+      const transform = dpr !== 1 ? [dpr, 0, 0, dpr, 0, 0] : null;
+      renderTask = page.render({ canvasContext: context, viewport: viewport, transform: transform });
+      return renderTask.promise;
+    }).then(function () {
+      status.textContent = 'Slide ' + pageNumber + ' of ' + pdf.numPages;
+      pageLabel.textContent = pageNumber + ' / ' + pdf.numPages;
+      prev.disabled = pageNumber <= 1;
+      next.disabled = pageNumber >= pdf.numPages;
+    }).catch(function (error) {
+      if (error && error.name === 'RenderingCancelledException') return;
+      showError('This slide could not be rendered.');
+      console.error(error);
+    });
+  }
+  if (!window.pdfjsLib) {
+    showError('The slide viewer could not load its PDF rendering library.');
+    return;
+  }
+  window.pdfjsLib.GlobalWorkerOptions.workerSrc =
+    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  status.textContent = 'Loading slides…';
+  window.pdfjsLib.getDocument({ url: new URL(fileUrl, window.location.href).href }).promise
+    .then(function (loadedPdf) {
+      pdf = loadedPdf;
+      renderPage();
+    })
+    .catch(function (error) {
+      showError('The PDF preview could not be loaded.');
+      console.error(error);
+    });
+  prev.addEventListener('click', function () {
+    if (pageNumber > 1) { pageNumber--; renderPage(); }
+  });
+  next.addEventListener('click', function () {
+    if (pdf && pageNumber < pdf.numPages) { pageNumber++; renderPage(); }
+  });
+  zoomOut.addEventListener('click', function () {
+    scale = Math.max(.7, scale - .15); renderPage();
+  });
+  zoomIn.addEventListener('click', function () {
+    scale = Math.min(2, scale + .15); renderPage();
+  });
+  window.addEventListener('resize', renderPage);
+})();
+</script>
+
 </body></html>

@@ -77,3 +77,10 @@ After the certificate is unlocked, enter the learner's name and select Generate 
 - The first question is included as visible fallback content, and the game initializes after the page DOM is ready.
 - The question card has explicit high-contrast light/dark theme styling and visible question numbering.
 - Game stages remain playable from Stage 1 without completing lessons; lesson completion remains a separate prerequisite for the Final 50-Mark Challenge.
+
+
+## Google Sites PowerPoint preview compatibility update
+- Lesson pages now render PDF slide previews with PDF.js onto an HTML canvas instead of embedding the browser's native PDF viewer.
+- Each lesson viewer includes previous/next page controls, zoom controls, and a loading/error status.
+- Original editable PowerPoint download links and separate PDF preview links remain available.
+- PDF.js and its worker are loaded from cdnjs; the viewer therefore requires an internet connection to load the rendering library.

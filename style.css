@@ -676,3 +676,41 @@ body.dark-mode #gameQuestion .quest-question-number { color:#d5c8ff !important; 
 body.dark-mode #gameQuestion .quest-question-text { color:#fff4dc !important; }
 #gameFeedback { min-height:24px; font-weight:700; }
 #gameAnswer { width:100%; margin:0 0 10px; }
+
+
+/* PDF.js slide viewer: renders PDF pages to canvas instead of Chrome's built-in PDF plugin */
+.pdfjs-viewer {
+  width:100%; margin:16px 0; overflow:hidden;
+  border:1px solid #d8c49b; border-radius:16px;
+  background:#f4f5f8; color:#1a2e50;
+}
+.pdfjs-toolbar {
+  display:flex; align-items:center; gap:9px; flex-wrap:wrap;
+  padding:10px 12px; background:#172b50; color:#fff;
+}
+.pdfjs-toolbar button {
+  border:1px solid #7888a8; border-radius:8px; padding:7px 12px;
+  background:#fff; color:#172b50; font-weight:700; cursor:pointer;
+}
+.pdfjs-toolbar button:disabled { opacity:.45; cursor:not-allowed; }
+.pdfjs-page { min-width:72px; text-align:center; font-weight:700; color:#fff; }
+.pdfjs-toolbar-spacer { flex:1; }
+.pdfjs-stage {
+  height:clamp(420px, 65vw, 760px); overflow:auto;
+  display:flex; justify-content:center; align-items:flex-start;
+  padding:16px; background:#e9edf4;
+}
+.pdfjs-stage canvas {
+  display:block; max-width:none; height:auto; background:#fff;
+  box-shadow:0 3px 18px rgba(20,35,60,.18);
+}
+.pdfjs-status { margin:0; padding:9px 13px; font-size:13px; color:#455775; background:#fff; }
+.pdfjs-error .pdfjs-status { color:#8a263f; font-weight:700; }
+body.dark-mode .pdfjs-viewer { background:#1d2b43; border-color:#65718a; }
+body.dark-mode .pdfjs-stage { background:#101a2c; }
+body.dark-mode .pdfjs-status { background:#1d2b43; color:#e8edf7; }
+@media(max-width:600px) {
+  .pdfjs-toolbar { gap:6px; padding:8px; }
+  .pdfjs-toolbar button { padding:7px 9px; font-size:12px; }
+  .pdfjs-stage { height:500px; padding:8px; }
+}
