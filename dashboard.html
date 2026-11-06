@@ -8,14 +8,18 @@
 <button class="nav-toggle" onclick="document.querySelector('.nav').classList.toggle('open')">☰</button>
 <nav class="nav"><a href="index.html">Home</a><a href="lessons.html">Lessons</a><a href="about.html">About Us</a><a href="feedback.html">Feedback</a><a href="dashboard.html">Dashboard</a><a href="practice.html">Practice Zone</a><a href="tutor.html">Number Tutor</a><a href="game.html">Number Quest</a><a href="challenge.html">Final Challenge</a><a href="certificate.html">Certificate</a></nav></header><main class="page-wrap"><p class="eyebrow">NUMBER SYSTEM MADE EASY • GRADE 9 DTI</p>
 <h1>Student Learning Dashboard</h1><p class="muted">Your progress is saved in this browser on this device.</p>
-<div class="grid-cards">
- <div class="panel"><span class="pill">Lessons</span><h2 id="lessonCount">0 / 10</h2><div class="progress"><span id="lessonBar"></span></div></div>
- <div class="panel"><span class="pill">Number Quest</span><h2 id="gameCount">0 / 5</h2><div class="progress"><span id="gameBar"></span></div></div>
- <div class="panel"><span class="pill">Final Challenge</span><h2 id="finalStatus">Locked</h2><p class="muted" id="finalScore"></p></div>
+<div class="dashboard-stats">
+ <div class="panel"><div class="stat-icon">📚</div><span class="pill">Lessons completed</span><h2 id="lessonCount">0 / 10</h2><div class="progress"><span id="lessonBar"></span></div></div>
+ <div class="panel"><div class="stat-icon">🎮</div><span class="pill">Quest stages</span><h2 id="gameCount">0 / 5</h2><div class="progress"><span id="gameBar"></span></div></div>
+ <div class="panel"><div class="stat-icon">🏅</div><span class="pill">Badges earned</span><h2 id="badgeCount">0</h2><p class="muted">Keep learning to earn more.</p></div>
+ <div class="panel"><div class="stat-icon">🎯</div><span class="pill">Final challenge</span><h2 id="finalStatus">Locked</h2><p class="muted" id="finalScore"></p></div>
 </div>
-<div class="panel"><h2>Lesson results</h2><div id="lessonResults"></div></div>
-<div class="panel"><h2>Achievement badges</h2><div id="badges" class="grid-cards"></div></div>
+<div class="dashboard-lower">
+ <div class="panel"><span class="pill">Your progress</span><h2>Learning journey</h2><div id="lessonResults"></div></div>
+ <div class="panel"><span class="pill">Your achievements</span><h2>Achievement badges</h2><div id="badges" class="grid-cards"></div></div>
+</div>
+<!-- retained data hooks for dashboard script --> 
 <div class="notice">Progress is stored using browser local storage. Clearing browser data or switching devices may reset or hide your progress. This is a learning prototype, not a secure examination system.</div>
 <script>
-document.addEventListener('DOMContentLoaded',()=>{let p=NSME.get();let n=p.completedLessons.length;document.getElementById('lessonCount').textContent=n+' / 10';document.getElementById('lessonBar').style.width=(n*10)+'%';document.getElementById('gameCount').textContent=p.gameLevel+' / 5';document.getElementById('gameBar').style.width=(p.gameLevel*20)+'%';document.getElementById('finalStatus').textContent=NSME.eligible()?'Unlocked':'Locked';document.getElementById('finalScore').textContent=p.finalScore===null?'Complete all lessons and Number Quest to unlock.':'Latest score: '+p.finalScore+'/50';document.getElementById('lessonResults').innerHTML=Array.from({length:10},(_,i)=>'<p>Lesson '+(i+1)+': '+(p.completedLessons.includes(i+1)?'✓ Completed — '+(p.quizScores[i+1]||0)+'/5':'Not completed')+'</p>').join('');document.getElementById('badges').innerHTML=p.badges.length?p.badges.map(b=>'<div class="panel">🏅 <b>'+b+'</b></div>').join(''):'<p class="muted">Complete lessons and game levels to earn badges.</p>';});
+document.addEventListener('DOMContentLoaded',()=>{let p=NSME.get();let n=p.completedLessons.length;document.getElementById('lessonCount').textContent=n+' / 10';document.getElementById('lessonBar').style.width=(n*10)+'%';document.getElementById('gameCount').textContent=p.gameLevel+' / 5';document.getElementById('gameBar').style.width=(p.gameLevel*20)+'%';document.getElementById('badgeCount').textContent=p.badges.length;document.getElementById('finalStatus').textContent=NSME.eligible()?'Unlocked':'Locked';document.getElementById('finalScore').textContent=p.finalScore===null?'Complete all lessons and Number Quest to unlock.':'Latest score: '+p.finalScore+'/50';document.getElementById('lessonResults').innerHTML=Array.from({length:10},(_,i)=>'<p class="activity-list">Lesson '+(i+1)+': '+(p.completedLessons.includes(i+1)?'✓ Completed — '+(p.quizScores[i+1]||0)+'/5':'○ Not completed')+'</p>').join('');document.getElementById('badges').innerHTML=p.badges.length?p.badges.map(b=>'<div class="badge-item"><span class="badge-icon">🏅</span><b>'+b+'</b></div>').join(''):'<p class="muted">Complete lessons and game levels to earn badges.</p>';});
 </script></main><footer class="site-footer">Number System Made Easy • Learn at your own pace • Bhutan</footer></body></html>

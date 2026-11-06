@@ -374,3 +374,189 @@ body.dark-mode .page-wrap .field {
   .resource-actions .btn { flex: 1 1 190px; }
   .slide-viewer { height: 460px; }
 }
+
+
+/* =========================================================
+   NSME PREMIUM BHUTAN-INSPIRED DESIGN SYSTEM — 2026
+   Existing lesson content and feature logic are retained.
+   ========================================================= */
+:root{
+ --navy:#101e3b;--navy2:#1a3159;--maroon:#76263b;--maroon2:#963b4b;
+ --gold:#d99b32;--gold-light:#f7dfaa;--cream:#fff8ec;--paper:#fffdf8;
+ --ink:#172c50;--muted:#586984;--line:#eadcc5;--purple:#6545c5;
+ --shadow:0 14px 36px rgba(31,34,58,.12);--radius:20px;
+}
+body{background:linear-gradient(180deg,#fffaf0 0%,#f7f0e4 100%);color:var(--ink);font-size:var(--site-font-size,15px)}
+.topbar{height:72px;background:linear-gradient(100deg,#101d38,#1b3155 65%,#5f2035);border-bottom:3px solid var(--gold);padding-inline:clamp(14px,3vw,42px)}
+.brand-emblem{border:2px solid #e7b54f;background:#f9e7bd;color:#6c2639;border-radius:10px;box-shadow:inset 0 0 0 2px #9e6425}
+.brand strong{font-size:13px;letter-spacing:.4px}.brand small{color:#f4d58f}
+.nav{gap:4px}.nav a{font-size:12px;padding:9px 11px;border-radius:8px}.nav a:hover,.nav a.active{background:#f5c75c;color:#182b4c}
+main.page-wrap{max-width:1240px;padding:42px clamp(16px,3vw,34px) 76px}
+.page-wrap>h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(2rem,4vw,3.1rem);line-height:1.12;color:#172d55;margin:.2em 0 .35em}
+.page-wrap>.eyebrow{color:#8a3150;letter-spacing:1.5px;font-weight:900}
+.page-wrap>.muted{font-size:1.08rem;max-width:850px;line-height:1.7}
+.panel{background:rgba(255,253,248,.96);border:1px solid #eadcc5;border-radius:var(--radius);padding:clamp(18px,2.4vw,28px);box-shadow:var(--shadow);margin:18px 0}
+.panel h2,.panel h3{color:#70283c}
+.pill{background:#f8e9cb;color:#772d40;border:1px solid #e7c98e;letter-spacing:.2px}
+.btn,.btn-primary,.btn-secondary{border-radius:999px;padding:12px 21px;font-weight:900;box-shadow:0 5px 14px rgba(58,38,57,.12);transition:transform .18s,box-shadow .18s,filter .18s}
+.btn:hover,.btn-primary:hover,.btn-secondary:hover{transform:translateY(-2px);box-shadow:0 9px 20px rgba(58,38,57,.18)}
+.btn-primary{background:linear-gradient(135deg,#8c2944,#642037);color:#fff;border:1px solid #a84b58}
+.btn-secondary{background:#fff4dc;color:#6d2b3e;border:1px solid #dfbd77}
+.btn-small{background:linear-gradient(135deg,#8c2944,#642037);color:white;border-radius:999px;padding:10px 17px}
+.field,select.field,input.field,textarea.field{width:100%;max-width:100%;border:1.5px solid #d9c7a9;border-radius:13px;background:#fffefa;color:#1a2e50;padding:13px 15px;min-height:46px}
+.field:focus{outline:3px solid rgba(212,157,58,.22);border-color:#b77c26}
+.question{background:#fffaf0;border:1px solid #e8d9bf;border-radius:15px;padding:17px}
+.progress{height:11px;background:#eadfcf;border-radius:99px}.progress span{background:linear-gradient(90deg,#8b2c49,#e0a83e)}
+.notice{background:#fff1d4;border-left-color:#d59a2f;color:#60401c}
+.grid-cards{grid-template-columns:repeat(auto-fit,minmax(min(100%,245px),1fr));gap:20px}
+.grid-cards>.panel{position:relative;overflow:hidden;min-height:250px;padding:24px;display:flex;flex-direction:column;align-items:flex-start;transition:transform .2s,box-shadow .2s}
+.grid-cards>.panel:before{content:"";position:absolute;inset:0 0 auto;height:7px;background:linear-gradient(90deg,#8a2947,#e4b24e,#23416b)}
+.grid-cards>.panel:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(38,39,61,.16)}
+.grid-cards>.panel h3{font-size:1.22rem;line-height:1.35;margin:15px 0 8px}
+.grid-cards>.panel p{line-height:1.65;flex:1}
+.grid-cards>.panel .btn{margin-top:12px}
+.site-footer{background:#101e3b;color:#e8d9b9;padding:28px 18px;border-top:3px solid #d6a13d}
+
+/* Home: preserve original Bhutan landscape hero, enrich journey grid. */
+.hero-home{background-color:#142744}
+.hero-home:after{content:"";position:absolute;inset:0;pointer-events:none;border:5px solid rgba(218,166,69,.72);box-shadow:inset 0 0 0 2px rgba(255,245,220,.55)}
+.hero-home .hero-content h1{font-family:'Playfair Display',Georgia,serif;text-shadow:0 2px 12px #101d38aa}
+.hero-home .hero-content h1 em{color:#ffd36c}
+.feature-strip{max-width:1200px;margin:24px auto;padding:0 20px;gap:16px}
+.feature{background:#fffdf8;border:1px solid #ead8b7;border-radius:18px;box-shadow:var(--shadow);padding:18px}
+.learning-journey{max-width:1240px;margin:34px auto;padding:34px 22px;background:#111d36;border-radius:24px;color:#fff;box-shadow:var(--shadow);border:1px solid #34415c}
+.learning-journey .section-heading h2{color:#fff}.learning-journey .eyebrow-dark{color:#e5b957}
+.journey-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.journey-card{min-height:150px;background:linear-gradient(145deg,#202e4b,#18243d);border:1px solid #43516d;border-radius:17px;padding:16px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;text-align:center;color:#fff;transition:.2s}
+.journey-card:hover{transform:translateY(-4px);border-color:#e4b454;background:#293956}
+.journey-symbol{display:grid;place-items:center;width:52px;height:48px;border-radius:13px;background:#fff1d2;color:#6c2940;font-weight:900;font-size:20px}
+.journey-card small{color:#e8bc62;font-weight:900}.journey-card strong{font-size:13px;line-height:1.35}
+.dots{display:none}
+
+/* Learn directory: guided path and ten clearly numbered cards. */
+.learn-guide{display:grid;grid-template-columns:minmax(250px,.8fr) minmax(0,1.2fr);gap:18px;margin:24px 0}
+.learn-guide .guide-steps,.learn-guide .guide-progress{background:linear-gradient(135deg,#fffaf0,#f8e8ce);border:1px solid #e7d0a7;border-radius:20px;padding:22px;box-shadow:var(--shadow)}
+.guide-steps h2,.guide-progress h2{font-family:'Playfair Display',Georgia,serif;color:#742b41;margin-top:0}
+.guide-steps ol{padding-left:24px;margin-bottom:0}.guide-steps li{padding:5px 0 5px 4px}
+.guide-progress .progress{margin:12px 0}
+.lessons-grid .panel{min-height:260px}
+.lessons-grid .panel:after{content:"";position:absolute;right:18px;top:18px;width:42px;height:42px;border-radius:12px;background:#f9edda;border:1px solid #ead4aa}
+.lessons-grid .panel:nth-child(4n+1):after{content:"01";display:grid;place-items:center;font-weight:900;color:#8b2d48}
+.lessons-grid .panel:nth-child(4n+2):after{content:"0101";display:grid;place-items:center;font-weight:900;color:#315c9b;font-size:12px}
+.lessons-grid .panel:nth-child(4n+3):after{content:"⑧";display:grid;place-items:center;font-weight:900;color:#7653c6;font-size:22px}
+.lessons-grid .panel:nth-child(4n):after{content:"⇄";display:grid;place-items:center;font-weight:900;color:#b77b21;font-size:22px}
+.lessons-grid .panel .pill{margin-right:48px}
+.lesson-page{max-width:1120px}
+.lesson-page .panel{margin:22px 0}
+.video-learning-card{padding:22px;background:linear-gradient(145deg,#fffdf8,#f6ead6)}
+.video-card-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:18px}
+.video-card-heading h2{margin:8px 0 4px;font-family:'Playfair Display',Georgia,serif}
+.video-status{white-space:nowrap;padding:7px 13px;border-radius:99px;background:#eee5d5;color:#624d32;font-size:12px;font-weight:900}
+.video-status.is-complete{background:#e1f3e6;color:#17633a}
+.video-frame-wrap{background:#0c1729;border:5px solid #d7ad61;border-radius:17px;padding:5px;overflow:hidden;margin-top:14px}
+.video-frame-wrap iframe,.video-frame-wrap #nsme-youtube-player{display:block;width:100%;aspect-ratio:16/9;min-height:280px;border:0;border-radius:10px}
+.video-player-placeholder{color:white;text-align:center;padding:60px 12px}
+.video-progress-row{display:grid;grid-template-columns:110px 1fr;gap:14px;align-items:center;margin-top:14px;font-weight:900;color:#6f2b42}
+.quiz-lock-note{padding:12px 15px;border-radius:12px;background:#fff1d4;color:#6d4518;font-weight:800}
+.lesson-quiz-panel fieldset{border:0;padding:0;margin:0;min-width:0}
+.lesson-quiz-panel fieldset:disabled{opacity:.52;filter:grayscale(.2)}
+.lesson-quiz-panel button:disabled{opacity:.5;cursor:not-allowed;filter:grayscale(.4)}
+.locked-lesson{text-align:center;max-width:700px;margin:70px auto;padding:50px 24px}
+.lock-emblem{font-size:48px;margin-bottom:10px}
+.resource-panel{border:2px solid #e2c17f;background:linear-gradient(145deg,#fffdf8,#fbf0dc)}
+.slide-viewer{border:4px solid #dfc48f;border-radius:16px;overflow:hidden;background:#18233a}
+.slide-viewer iframe{width:100%;height:560px;border:0;display:block}
+
+/* Practice Zone: convert tool remains fully functional beneath activity choices. */
+.practice-activities{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:22px 0}
+.practice-activity{background:#fffdf8;border:1px solid #e7d5b6;border-radius:18px;padding:20px 16px;box-shadow:var(--shadow);text-align:center;display:flex;flex-direction:column;align-items:center;min-height:190px}
+.practice-activity .activity-icon{font-size:32px;margin-bottom:8px}.practice-activity h3{margin:4px 0;color:#70283c}.practice-activity p{font-size:13px;flex:1}
+.practice-activity a{display:inline-block;background:#792a43;color:white;padding:9px 16px;border-radius:99px;font-weight:900;font-size:12px}
+.practice-activity:nth-child(2) a{background:#315c9b}.practice-activity:nth-child(3) a{background:#25834c}.practice-activity:nth-child(4) a{background:#6b48bd}
+
+/* Tutor: style the existing offline topic tutor as a guided assistant. */
+.tutor-layout{display:grid;grid-template-columns:260px minmax(0,1fr);gap:18px}
+.tutor-topics{background:#f8ecd8;border:1px solid #e6d0a7;border-radius:18px;padding:18px}
+.tutor-topics h3{margin-top:0;color:#76283f}
+.tutor-chat{background:#fffdf8;border:1px solid #e5d5b8;border-radius:20px;padding:20px;box-shadow:var(--shadow)}
+.tutor-welcome{background:#eeeaff;border:1px solid #d7cdfb;border-radius:16px;padding:16px;margin:12px 0}
+.tutor-avatar{display:inline-grid;place-items:center;width:42px;height:42px;background:#dcecff;border-radius:50%;font-size:22px;margin-right:8px;vertical-align:middle}
+.tutor-suggestions{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.tutor-suggestions button{border:1px solid #d7c8eb;background:#fff;border-radius:99px;padding:8px 12px;color:#473477;font-size:12px;font-weight:800}
+.tutor-suggestions button:hover{background:#f0eaff}
+#explanation{background:#f7f8ff;border:1px solid #dbe0f3;border-radius:16px;padding:20px;white-space:pre-line;line-height:1.8;min-height:110px}
+.tutor-note{font-size:12px;color:#6a7284;margin-top:12px}
+
+/* Dashboard: real progress data only; no invented scores. */
+.dashboard-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.dashboard-stats .panel{margin:0;text-align:center}
+.dashboard-stats .stat-icon{font-size:27px}
+.dashboard-stats h2{font-size:clamp(1.5rem,3vw,2rem);margin:5px 0;color:#1a3159}
+.dashboard-lower{display:grid;grid-template-columns:1.1fr .9fr;gap:18px}
+.badge-item{display:flex;align-items:center;gap:12px;padding:13px;background:#fff8e9;border:1px solid #ead8b7;border-radius:13px}
+.badge-item .badge-icon{font-size:25px}
+.activity-list{padding-left:0;list-style:none}.activity-list li{padding:10px 0;border-bottom:1px solid #eee2cf}
+.site-accessibility-tools{position:fixed;right:12px;bottom:12px;z-index:90;display:flex;gap:6px;padding:7px;background:rgba(255,255,255,.94);border:1px solid #dfd5c6;border-radius:14px;box-shadow:0 5px 20px #1112}
+.site-accessibility-tools button{min-width:42px;height:42px;border:1px solid #e4d9c9;background:#fffdf8;color:#172d50;border-radius:10px;font-weight:900}
+.site-accessibility-tools button:hover{background:#f8e7c4}
+
+/* High-contrast, coherent dark theme across every card and embedded panel. */
+body.dark-mode{--cream:#10182a;--paper:#1c2941;--ink:#f4f1e9;--muted:#c5cede;--line:#394966;--shadow:0 14px 36px #0005;background:#10182a;color:#f4f1e9}
+.dark-mode .topbar{background:linear-gradient(100deg,#090f1d,#16243d 65%,#3b1a2a);border-bottom-color:#c89539}
+.dark-mode main.page-wrap,.dark-mode .page-wrap{color:#f4f1e9}
+.dark-mode .panel,.dark-mode .feature,.dark-mode .practice-activity,.dark-mode .tutor-chat,.dark-mode .dashboard-stats .panel{background:#1c2941;border-color:#42516c;color:#f4f1e9}
+.dark-mode .panel h1,.dark-mode .panel h2,.dark-mode .panel h3,.dark-mode h1,.dark-mode h2,.dark-mode h3,.dark-mode label{color:#fff3d7}
+.dark-mode .muted,.dark-mode .viewer-help,.dark-mode .tutor-note{color:#c4cede}
+.dark-mode .pill{background:#3b3048;border-color:#70516b;color:#ffe2a4}
+.dark-mode .field,.dark-mode select.field,.dark-mode input.field,.dark-mode textarea.field{background:#111d32;color:#f7f2e8;border-color:#596b89}
+.dark-mode .question,.dark-mode .quiz-lock-note,.dark-mode .notice{background:#263650;color:#f4e9d5;border-color:#8e6b35}
+.dark-mode .learn-guide .guide-steps,.dark-mode .learn-guide .guide-progress,.dark-mode .tutor-topics{background:#202e48;border-color:#52617c;color:#f4f1e9}
+.dark-mode .tutor-welcome{background:#302d52;border-color:#5c5793;color:#f7f4ff}
+.dark-mode #explanation{background:#111f36;border-color:#4b5c7b;color:#f4f1e9}
+.dark-mode .badge-item{background:#263650;border-color:#52617c}
+.dark-mode .video-learning-card,.dark-mode .resource-panel{background:#1c2941;border-color:#856a3d}
+.dark-mode .video-status{background:#3a4355;color:#fff0cf}
+.dark-mode .video-status.is-complete{background:#164d3a;color:#d5ffe8}
+.dark-mode .site-accessibility-tools{background:#17243a;border-color:#4a5a76}
+.dark-mode .site-accessibility-tools button{background:#24334e;color:#fff3d7;border-color:#52617c}
+.dark-mode .hero-home .hero-content h1{color:white}
+.dark-mode .outcomes,.dark-mode .outcome-copy{color:#f4f1e9}
+.dark-mode .learning-journey{background:#0a1325;border-color:#45516c}
+.dark-mode .journey-card{background:#202e48;border-color:#53617a}
+.dark-mode .slide-viewer{border-color:#8a6c3c}
+.dark-mode .resource-intro{color:#d1d8e5}
+.dark-mode a{color:inherit}
+.dark-mode .btn-primary{color:#fff}.dark-mode .btn-secondary{background:#34435e;color:#ffebc4;border-color:#8b7045}
+
+/* Responsive layout */
+@media(max-width:900px){
+ .nav{display:none;position:absolute;top:72px;left:0;right:0;background:#111f3c;padding:12px;flex-direction:column;align-items:stretch;max-height:75vh;overflow:auto}
+ .nav.open{display:flex}.nav a{padding:12px}
+ .journey-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .learn-guide{grid-template-columns:1fr}
+ .practice-activities{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .dashboard-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .dashboard-lower{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+ .topbar{padding-inline:12px}.brand strong{font-size:11px}.brand-emblem{width:32px;height:32px}
+ main.page-wrap{padding:28px 14px 90px}
+ .journey-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .practice-activities{grid-template-columns:1fr 1fr;gap:9px}
+ .practice-activity{padding:14px 10px}
+ .tutor-layout{grid-template-columns:1fr}
+ .video-card-heading{display:block}.video-status{display:inline-block;margin-top:8px}
+ .video-frame-wrap iframe,.video-frame-wrap #nsme-youtube-player{min-height:210px}
+ .slide-viewer iframe{height:400px}
+ .site-accessibility-tools{right:7px;bottom:7px;gap:4px}.site-accessibility-tools button{min-width:36px;height:38px}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+.dark-mode .mission-card,.dark-mode .vision-card,.dark-mode .goal-card,
+.dark-mode .mission,.dark-mode .vision,.dark-mode .goal,
+.dark-mode .about-card{background:#1c2941!important;color:#f4f1e9!important;border-color:#42516c!important}
+.dark-mode .mission-card p,.dark-mode .vision-card p,.dark-mode .goal-card p,
+.dark-mode .about-card p{color:#c5cede!important}
+.is-locked{opacity:.65;cursor:not-allowed;pointer-events:none;background:#a9a1b1!important}
+.pill.is-done{background:#e1f3e6;color:#17633a;border-color:#b6dec3}
+.video-error{padding:25px;color:#fff;background:#572b3a;border-radius:10px}
